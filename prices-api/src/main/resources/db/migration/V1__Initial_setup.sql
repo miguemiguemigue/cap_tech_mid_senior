@@ -1,5 +1,5 @@
 CREATE TABLE prices (
-    id BIGINT PRIMARY KEY CHECK (id >= 0),
+    id BIGINT PRIMARY KEY AUTO_INCREMENT CHECK (id >= 0),
     product_id BIGINT NOT NULL CHECK (product_id >= 0),
     brand_id BIGINT NOT NULL CHECK (brand_id >= 0),
     price_list_id BIGINT NOT NULL CHECK (price_list_id >= 0),

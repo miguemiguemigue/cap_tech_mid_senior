@@ -5,3 +5,4 @@
 .idea
 /data/
 /prices-api/data/devdb.mv.db
+/prices-api/data/devdb.trace.db
