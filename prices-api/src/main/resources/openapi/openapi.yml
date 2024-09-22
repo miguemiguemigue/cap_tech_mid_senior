@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: Price API
+  description: API to check product prices for a brand in a given period
+  version: 1.0.0
+paths:
+  /prices:
+    get:
+      tags:
+        - Price API
+      summary: Check product price
+      description: Get the price list related to a product, brand, and a given time
+      parameters:
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+            description: Must be a valid date in ISO 8601 format
+            example: "2020-06-14T10:00:00"
+          description: Date and time to check the price.
+        - name: product_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            example: 123
+          description: Product identifier.
+        - name: brand_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            example: 123
+          description: Brand identifier.
+      responses:
+        '200':
+          description: Product price found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResponse'
+        '400':
+          description: Invalid request
+        '404':
+          description: Price information not found for the provided parameters
+components:
+  schemas:
+    PriceResponse:
+      type: object
+      properties:
+        product_id:
+          type: integer
+          format: int64
+          description: Product identifier.
+        brand_id:
+          type: integer
+          format: int64
+          description: Brand identifier.
+        price_list:
+          type: integer
+          format: int64
+          description: Price list identifier.
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of the price.
+        end_date:
+          type: string
+          format: date-time
+          description: End date of the price.
+        price:
+          type: number
+          format: float
+          description: Final price to apply.
+        curr:
+          type: string
+          description: Currency code.
+      required:
+        - product_id
+        - brand_id
+        - price_list
+        - start_date
+        - end_date
+        - price
+        - curr
